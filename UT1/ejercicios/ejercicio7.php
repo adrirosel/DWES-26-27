@@ -1,7 +1,7 @@
 <?php 
 $titulo = "Dune";
 $paginas = 412; 
-const MAX_PRESTADOS = 3; 
-$disponible = true; 
-echo "Libro: " . $titulo; 
-$puede = $paginas > 400 && $disponible = true;
+$autor = "Frank Herbert";
+
+$mensajeConcatenado = '<<'. $titulo . '---' . $autor . '('. $paginas. ' paginas)>>';
+$mensajeInterpolado = "<<$titulo --- $autor($paginas paginas)>>";

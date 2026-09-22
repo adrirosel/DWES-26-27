@@ -1,10 +1,10 @@
 <?php
-$libro = 24.90;
-const PORCENTAJE_DESCUENTO = 0.15;
-const IVA = 0.04;
+$a = (5 == "5"); //True
+$b = (5 === "5"); // False
+$c = (10 > 5 && 3 < 2); //True, ya que se cumplen las dos condiciones
+$d = !$b || $c; //True, en este caso los dos valores de la comparacion son true
 
-$precioDescontado = $libro * PORCENTAJE_DESCUENTO;
-$libro -= $precioDescontado; 
-$descuentoIva = $libro * IVA;
-$libro -= $descuentoIva;
+//La principal diferencia entre "==" y "===" reside en que el primer comparador
+//comprueba unicamente el valor de los dos elementos, mientras que 
+//el segundo comparador comprueba tambien la IDENTIDAD, es decir, el tipo de dato
 

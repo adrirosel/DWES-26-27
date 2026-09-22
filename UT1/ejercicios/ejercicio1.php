@@ -1,15 +1,8 @@
-<?php
-echo "Informacion sobre libro";
-$titulo = "El Principito";
-$autor = "Antoine de Saint-Exupéry";
-$numeroPaginas = "319";
-$precio = 21.59;
-$disponible = true;
-$mensajeDisponible = $disponible 
-    ? 'Disponible' 
-    : 'Agotado';
+<?php 
+$a = 25;//Valor de tipo int (entero)
+$b = 25.0; //Valor de tipo float (decimal)
+$c = "25"; //Valor de tipo string (cadena)
+$d = true; //bool (boleano)
+$e = null; //null (Nulo/sin valor)
 
-$mensaje = "Titulo: " . $titulo . "\n autor: " . $autor . "\n numero de paginas: " . $numeroPaginas
-    . "\n precio: " . $precio . "\n estado: " . $mensajeDisponible;
-
-echo $mensaje;
+$f = (int) $c;  //Conversion mediante casting para cambiar el tipo de la variable

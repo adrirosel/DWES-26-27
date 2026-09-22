@@ -1,8 +1,10 @@
-<?php 
-$a = 25;//Valor de tipo int (entero)
-$b = 25.0; //Valor de tipo float (decimal)
-$c = "25"; //Valor de tipo string (cadena)
-$d = true; //bool (boleano)
-$e = null; //null (Nulo/sin valor)
+<?php
+$libro = 24.90;
+const PORCENTAJE_DESCUENTO = 0.15;
+const IVA = 0.04;
 
-$f = (int) $c;  //Conversion mediante casting para cambiar el tipo de la variable
+$precioDescontado = $libro * PORCENTAJE_DESCUENTO;
+$libro -= $precioDescontado; 
+$descuentoIva = $libro * IVA;
+$libro -= $descuentoIva;
+

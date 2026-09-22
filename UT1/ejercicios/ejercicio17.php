@@ -16,12 +16,13 @@ $catalogo = [
     $libro4 = [
         "titulo" => "Los Secretos de Youtube", 
         "autor" => "TheGrefg",
-    ], 
-    
+    ],
+    $libro5 = [
+        "titulo" => "Libro", 
+        "autor" => "Ursula K. Le Guin", 
+    ] 
 ];
 
 foreach($catalogo as $libro){
-    foreach($libro as $clave => $valor){
-        echo "$clave: $valor<br>";
-    }
+    if($libro['autor'] === "Ursula K. Le Guin") echo $libro['titulo'];
 }

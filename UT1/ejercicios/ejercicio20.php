@@ -1,17 +1,13 @@
 <?php
 
-$paginas = [90, 640, 710, 212, 74, 15, 1024, 2032];
-sort($paginas);
+$novedades1 = [2, 4, 6, 8, 10];
+$novedades2 = [12, 14, 16, 18, 20];
 
-echo "Minimo: $paginas[0]<br>";
-echo "Maximo: $paginas[7]<br>";
+unset($novedades1[0]);
+$superArray = array_merge($novedades1, $novedades2);
 
-$suma = 0;
+sort($superArray);
 
-foreach($paginas as $pagina){
-    $suma += $pagina;
-};
-
-$media = $suma / count($paginas);
-
-echo round($media, 2);
+foreach($superArray as $clave => $valor){
+    echo "$clave: $valor<br>";
+}
