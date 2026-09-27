@@ -76,3 +76,12 @@ $libros = [
         'fechaAlta' => '2026-09-08'
     ]
 ];
+
+$sintaxisGeneros = [
+    'fantasia' => 'Fantasía',
+    'distopia' => 'Distopía',
+    'realismo-magico' => 'Realismo mágico', 
+    'novela' => 'Novela', 
+    'ciencia-ficcion' => 'Ciencia ficción', 
+    'misterio' => 'Misterio'
+];

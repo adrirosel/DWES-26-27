@@ -8,11 +8,10 @@ function buscarPorId(array $libros, int $id): ?array {
             return $libro;
         }
     }
-    echo 'No se ha encontrado el libro';
     return null;
 }
 
-function fitlrarPorGenero(array $libros, string $genero): array{
+function filtrarPorGenero(array $libros, string $genero): array{
     $librosFiltrados = [];
     foreach($libros as $libro){
         if($libro['genero'] === $genero){
@@ -33,12 +32,16 @@ function filtrarDisponibles(array $libros): array{
 }
 
 function calcularMediaPaginas(array $libros): float{
+    if(count($libros) === 0){
+        return 0.00;
+    }
     $totalPaginas = 0;
     foreach($libros as $libro){
         $totalPaginas += $libro['paginas'];
     }
     $media = $totalPaginas / count($libros);
     return $media;
+    
 }
 
 function obtenerLibroMasLargo(array $libros): ?array{
