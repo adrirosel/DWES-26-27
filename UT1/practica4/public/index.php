@@ -7,12 +7,12 @@ require_once __DIR__ . '/datos.php';
 
 // Permite flitrar con ?genero y ?disponible=1
 
-$genero = $_GET['genero'] ?? null;
+$genero = strtolower(trim((string)$_GET['genero'] ?? null));
 $disponible = $_GET['disponible'] ?? null;
 
-if(array_key_exists((string)$genero, $sintaxisGeneros)){
-    $genero = $sintaxisGeneros[$genero];
-}
+// if(array_key_exists((string)$genero, $sintaxisGeneros)){
+//     $genero = $sintaxisGeneros[$genero];
+// }
 
 $catalogoFinal = $libros;
 

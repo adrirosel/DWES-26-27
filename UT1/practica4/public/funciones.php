@@ -14,7 +14,7 @@ function buscarPorId(array $libros, int $id): ?array {
 function filtrarPorGenero(array $libros, string $genero): array{
     $librosFiltrados = [];
     foreach($libros as $libro){
-        if($libro['genero'] === $genero){
+        if(strtolower($libro['genero']) === $genero){
             $librosFiltrados[] = $libro;
         }
     }
