@@ -1,13 +1,13 @@
 <?php
 
 declare(strict_types=1);
-require_once __DIR__ . '/funciones.php';
-require_once __DIR__ . '/datos.php';
+require_once __DIR__ . '/../src/funciones.php';
+require_once __DIR__ . '/../src/datos.php';
 
 
 // Permite flitrar con ?genero y ?disponible=1
 
-$genero = strtolower(trim((string)$_GET['genero'] ?? null));
+$genero = strtolower(trim((string)($_GET['genero'] ?? '')));
 $disponible = $_GET['disponible'] ?? null;
 
 // if(array_key_exists((string)$genero, $sintaxisGeneros)){
@@ -16,7 +16,7 @@ $disponible = $_GET['disponible'] ?? null;
 
 $catalogoFinal = $libros;
 
-if($genero !== null){
+if($genero !== ''){
     $catalogoFinal = filtrarPorGenero($catalogoFinal, $genero);
 }
 if($disponible === '1'){
