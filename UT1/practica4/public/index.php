@@ -69,7 +69,7 @@ $numeroResultados = count($catalogoFinal);
 
 <?php 
 //Mostrar el libro con mas paginas
-$libroMasLargo = obtenerLibroMasLargo($libros);
+$libroMasLargo = obtenerLibroMasLargo($catalogoFinal);
 ?>
 <p><strong>Libro con mas paginas: </strong> 
 <?= htmlspecialchars($libroMasLargo['titulo']) ?>, paginas: <?= htmlspecialchars((string)$libroMasLargo['paginas']) ?> </p><br>
