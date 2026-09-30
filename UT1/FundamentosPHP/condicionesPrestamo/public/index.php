@@ -25,7 +25,7 @@ $diasSegunTipo = match ($tipo) {
      'externo' => 7,      
 };
      //La funcion comprueba si hay renovacion
-    tieneRenovacion($tipo, $renovacion, $diasSegunTipo);
+tieneRenovacion($tipo, $renovacion, $diasSegunTipo);
 
 //Clasificar situacion de retraso
 
@@ -46,3 +46,4 @@ echo 'El usuario'. htmlspecialchars($tipo).' tiene un limite de' . $diasSegunTip
 listarDiasDeRetraso();
 
  
+

@@ -9,6 +9,7 @@ function filtrarTipo(string &$tipo): void{
 }
 
 function comprobarParametroDias(string &$dias): void{
+
     $dias = (int) $dias;
     if($dias < 0){
         echo 'Parametro no valido';
@@ -50,5 +51,6 @@ function listarDiasDeRetraso(): void{
             echo "...";
             break;
         }
+
     }
 }
