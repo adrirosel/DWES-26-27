@@ -1,4 +1,5 @@
 <?php
+
 $generos = ["Fantasia", "Terror", "Ciencia ficcion", "comedia", "tragedia"];
 $generos[] = "suspense";
 $generos[2] = "historica";

@@ -36,6 +36,13 @@ clasificarSituacion($diasSegunTipo);
 $penalizacion = 0.50;
 calcularPenalizacion($dias, $diasSegunTipo, $penalizacion);
 
-// Frase usando interpolacion
+// Frase usando concatenacion
 
-echo "Primer parametro: $tipo.<br> Segundo parametro: $dias. <br> Tercer parametro: $renovacion";
+echo 'El usuario'. htmlspecialchars($tipo).' tiene un limite de' . $diasSegunTipo . 
+'dias antes de que se le empiece a aplicar una tarifa de ' . $penalizacion . '$ por dia de retraso';
+
+//Lista de los dias de retraso
+
+listarDiasDeRetraso();
+
+ 

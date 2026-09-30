@@ -20,17 +20,17 @@ function tieneRenovacion(string $tipo, string $renovacion, int &$diasSegunTipo):
         if($tipo === 'alumno' || $tipo === 'profesor') $diasSegunTipo += 7;
     }
 }
-$retrasoLeve = 3;
-$retrasoGrave = 9;
+$RETRASO_LEVE = 3;
+$RETRASO_GRAVE = 9;
 
 function clasificarSituacion(int $diasSegunTipo): void{
-    global $retrasoLeve;
-    global $retrasoGrave;
-    if($diasSegunTipo < $retrasoLeve){
+    global $RETRASO_LEVE;
+    global $RETRASO_GRAVE;
+    if($diasSegunTipo < $RETRASO_LEVE){
         echo "Correcta";
-    } else if($diasSegunTipo === $retrasoLeve){
+    } else if($diasSegunTipo === $RETRASO_LEVE){
         echo 'Ultimo dia';
-    } else if($diasSegunTipo >= $retrasoLeve || $diasSegunTipo <= $retrasoGrave ){
+    } else if($diasSegunTipo >= $RETRASO_LEVE || $diasSegunTipo <= $RETRASO_GRAVE ){
         echo 'Retraso leve';
     } else {
         echo 'Retraso grave';
@@ -40,4 +40,15 @@ function clasificarSituacion(int $diasSegunTipo): void{
 function calcularPenalizacion(int $dias, int|null $diasSegunTipo, float &$penalizacion): float{
     $diasExactosRetraso = $dias - $diasSegunTipo;
     return $diasExactosRetraso * $penalizacion;
+}
+
+function listarDiasDeRetraso(): void{
+    $diasRetraso = 100;
+    for($i = 1; $i <= $diasRetraso; $i++){
+        echo "Dia $i"; 
+        if($i > 10){
+            echo "...";
+            break;
+        }
+    }
 }
