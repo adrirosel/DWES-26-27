@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../src/datos.php';
 require_once __DIR__ . '/../src/funciones.php';
 
-$id = $_GET['id'] ?? (int)'0';
+// El casting lo hacemos una vez tengamos el valor
+$id = (int) ($_GET['id'] ?? 0);
 
 $videojuego = buscarPorId($videojuegos, $id);
 
 if ($videojuego === null) {
+    // Mejor ponerlo en el body, no?
     echo "Videojuego no encontrado / no existente"
     ?>
     <!doctype html>
@@ -33,6 +37,7 @@ $intervalo = $hoy->diff($fechaLanzamiento);
 
 $diasTranscurridos = $intervalo->days; //0? Habrá que calcular algo, no?
 $finNovedad = $fechaLanzamiento->modify('+30days');
+// El estado dependía si era Novedad o no
 $estado = $videojuego['disponible'];
 
 // COMPLETAR los cálculos anteriores utilizando los datos del videojuego.
@@ -89,6 +94,7 @@ $estado = $videojuego['disponible'];
         <?endif;?>
     </dl>
 
-    <p><a href="/public/index.php">Volver al catálogo</a></p>
+    <!-- Cuidado con las rutas -->
+    <p><a href="index.php">Volver al catálogo</a></p>
 </body>
 </html>
