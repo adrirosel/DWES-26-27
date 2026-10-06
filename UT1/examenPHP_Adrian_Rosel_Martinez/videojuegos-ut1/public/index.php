@@ -5,51 +5,66 @@ declare(strict_types=1);
 require_once __DIR__ . '/../src/datos.php';
 require_once __DIR__ . '/../src/funciones.php';
 // Poner la zona horaria
+date_default_timezone_set('Europe/Madrid');
 
 // 3.1. Leer parámetros
-$genero = strtolower(trim((string)($_GET['genero'] ?? 'todos')));
-$plataforma = strtolower(trim((string)($_GET['plataforma'] ?? 'todas')));
-$texto = strtolower(trim((string)($_GET['q'] ?? '')));
-$orden = strtolower(trim((string)($_GET['orden'] ?? 'titulo')));
+// Para qué está la función normalizarTexto() (Corregido)
+$genero = normalizarTexto($_GET['genero']?? 'todos');
+$plataforma = normalizarTexto($_GET['plataforma']?? 'todas');
+$texto = normalizarTexto($_GET['q'] ?? '');
+$orden = normalizarTexto($_GET['orden'] ?? 'titulo');
 // 3.2. Normalizar y comprobar que los valores recibidos estén dentro de los esperados
 
+// No se comprueba que $plataforma esté dentro de las definidas y lo mismo con orden. (Corregido)
 
+if(!array_key_exists($plataforma, $plataformas)){
+    $plataforma = 'todas';
+}
+// if(!in_array($orden, ['titulo', 'precio', 'puntuacion'])){
+//     $orden = 'titulo';
+// }
 
 // 3.3. Filtros
 $resultados = $videojuegos;
 
 // Aplica sobre $resultados los filtros, la búsqueda y la ordenación solicitados.
 
-if($genero !== 'todos'){
+// Perfecto!
+if ($genero !== 'todos') {
     $resultados = filtrarPorGenero($resultados, $genero);
 }
-if($plataforma !== 'todas'){
+if ($plataforma !== 'todas') {
     $resultados = filtrarPorPlataforma($resultados, $plataforma);
 }
-if($texto !== ''){
+if ($texto !== '') {
     $resultados = buscarPorTexto($resultados, $texto);
 }
-if($orden !== null){
+if ($orden !== null) {
     $resultados = ordenarVideojuegos($resultados, $orden);
 }
 
 // 3.5. Ordenar salida
-// Ordena las dos colecciones anteriores manteniendo la relación entre claves y valores.
+// Ordena las dos colecciones anteriores manteniendo la relación entre claves y valores. (Corregido)
 
-$videojuegos = ordenarVideojuegos($videojuegos, 'titulo');
-$resultados = ordenarVideojuegos($resultados, 'titulo');
-asort($ventasSemana);
-ksort($plataformas);  
+$resultados = ordenarVideojuegos($resultados, $orden);
+
+$ventasOrdenadas = $ventasSemana;
+$plataformasOrdenadas = $plataformas;
+
+ksort($plataformasOrdenadas);
+asort($ventasOrdenadas);
 
 $timestampConsulta = time();
-$fechaConsulta = date('d/m/Y', $timestampConsulta);
+$fechaConsulta = date('d/m/Y H:i', $timestampConsulta);
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <title>Catálogo de videojuegos</title>
 </head>
+
 <body>
     <h1>Catálogo de videojuegos</h1>
 
@@ -93,8 +108,11 @@ $fechaConsulta = date('d/m/Y', $timestampConsulta);
     <ul>
         <?php foreach ($resultados as $videojuego): ?>
             <li>
-                <a href="./videojuego.php/?id="><?= htmlspecialchars((string)$videojuego['id']) ?></a>
-                <?= htmlspecialchars($videojuego['titulo']) ?>
+                <!-- Cuidado con los enlaces -->
+                <a href="videojuego.php?id=<?= $videojuego['id'] ?>">
+                    <?= htmlspecialchars($videojuego['titulo']) ?>
+                </a>
+                · <?= htmlspecialchars($videojuego['plataforma']) ?>
                 · <?= number_format($videojuego['precio'], 2, ',', '.') ?> €
                 · <?= $videojuego['puntuacion'] ?>/10
             </li>
@@ -111,9 +129,10 @@ $fechaConsulta = date('d/m/Y', $timestampConsulta);
         <?php foreach ($ventasSemana as $codigo => $ventas): ?>
             <li><?= htmlspecialchars((string) $codigo) ?>: <?= $ventas ?></li>
         <?php endforeach; ?>
-        
+
     </ul>
 
     <p>Consulta generada: <?= htmlspecialchars($fechaConsulta) ?></p>
 </body>
+
 </html>
