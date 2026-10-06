@@ -8,14 +8,21 @@ require_once __DIR__ . '/../src/funciones.php';
 date_default_timezone_set('Europe/Madrid');
 
 // 3.1. Leer parámetros
-// Para qué está la función normalizarTexto()
-$genero = strtolower(trim((string)($_GET['genero'] ?? 'todos')));
-$plataforma = strtolower(trim((string)($_GET['plataforma'] ?? 'todas')));
-$texto = strtolower(trim((string)($_GET['q'] ?? '')));
-$orden = strtolower(trim((string)($_GET['orden'] ?? 'titulo')));
+// Para qué está la función normalizarTexto() (Corregido)
+$genero = normalizarTexto($_GET['genero']?? 'todos');
+$plataforma = normalizarTexto($_GET['plataforma']?? 'todas');
+$texto = normalizarTexto($_GET['q'] ?? '');
+$orden = normalizarTexto($_GET['orden'] ?? 'titulo');
 // 3.2. Normalizar y comprobar que los valores recibidos estén dentro de los esperados
 
-// No se comprueba que $plataforma esté dentro de las definidas y lo mismo con orden.
+// No se comprueba que $plataforma esté dentro de las definidas y lo mismo con orden. (Corregido)
+
+if(!array_key_exists($plataforma, $plataformas)){
+    $plataforma = 'todas';
+}
+// if(!in_array($orden, ['titulo', 'precio', 'puntuacion'])){
+//     $orden = 'titulo';
+// }
 
 // 3.3. Filtros
 $resultados = $videojuegos;
@@ -37,17 +44,18 @@ if ($orden !== null) {
 }
 
 // 3.5. Ordenar salida
-// Ordena las dos colecciones anteriores manteniendo la relación entre claves y valores.
+// Ordena las dos colecciones anteriores manteniendo la relación entre claves y valores. (Corregido)
 
-// Esto no lo entiendo, no te funcionaba el de arriba?
-// $videojuegos = ordenarVideojuegos($videojuegos, 'titulo');
-// $resultados = ordenarVideojuegos($resultados, 'titulo');
+$resultados = ordenarVideojuegos($resultados, $orden);
 
-asort($ventasSemana);
-ksort($plataformas);
+$ventasOrdenadas = $ventasSemana;
+$plataformasOrdenadas = $plataformas;
+
+ksort($plataformasOrdenadas);
+asort($ventasOrdenadas);
 
 $timestampConsulta = time();
-$fechaConsulta = date('d/m/Y', $timestampConsulta);
+$fechaConsulta = date('d/m/Y H:i', $timestampConsulta);
 ?>
 <!doctype html>
 <html lang="es">

@@ -11,8 +11,7 @@ $id = (int) ($_GET['id'] ?? 0);
 $videojuego = buscarPorId($videojuegos, $id);
 
 if ($videojuego === null) {
-    // Mejor ponerlo en el body, no?
-    echo "Videojuego no encontrado / no existente"
+    
     ?>
     <!doctype html>
     <html lang="es">
@@ -21,6 +20,7 @@ if ($videojuego === null) {
         <title>Videojuego no encontrado</title>
     </head>
     <body>
+        <p>Videojuego con id <?= $id ?> no encontrado</p>
     </body>
     </html>
     <?php
@@ -30,15 +30,15 @@ if ($videojuego === null) {
 // Prepara las fechas y los valores que necesita la ficha.
 
 $fechaLanzamiento = new DateTimeImmutable($videojuego['fechaLanzamiento']);
-// De dónde saco la fecha??
+
 $hoy = new DateTimeImmutable();
 
 $intervalo = $hoy->diff($fechaLanzamiento);
 
-$diasTranscurridos = $intervalo->days; //0? Habrá que calcular algo, no?
+$diasTranscurridos = $intervalo->days; 
 $finNovedad = $fechaLanzamiento->modify('+30days');
-// El estado dependía si era Novedad o no
-$estado = $videojuego['disponible'];
+// El estado dependía si era Novedad o no (Corregido)
+$estado = $diasTranscurridos > 30 ? 'Catálogo' : 'Novedad'
 
 // COMPLETAR los cálculos anteriores utilizando los datos del videojuego.
 ?>
@@ -81,17 +81,7 @@ $estado = $videojuego['disponible'];
         <dd><?= htmlspecialchars($finNovedad->format('d/m/Y')); ?></dd>
 
         <dt>Estado</dt>
-        <dd>
-            <?php if ($estado === true): ?>
-                <?= htmlspecialchars('Disponible') ?>
-            <?php elseif($estado !== true): ?>
-                <?= htmlspecialchars('No disponible') ?> 
-            <?php endif; ?>
-        </dd>
-        <?if($hoy > $finNovedad):?>
-            <?= htmlspecialchars('Catálogo') ?>
- 
-        <?endif;?>
+        <dd><?= htmlspecialchars($estado) ?></dd>
     </dl>
 
     <!-- Cuidado con las rutas -->
