@@ -49,7 +49,7 @@ $visibles = ordenarEquipos(
     $orden
 );
 $resumen = resumirEquipos($visibles);
-$etiquetas = generarEtiquetas($resumen);
+$etiquetas = generarEtiquetas($visibles);
 
 $seleccionado = null;
 $avisoFicha = '';

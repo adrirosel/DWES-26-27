@@ -28,7 +28,12 @@ function categoriaValida(string $categoria, array $categorias): bool
 function unidadesPrestadas(array $prestamos, int $equipoId): int
 {
     // TODO 5: sumar unidades de préstamos activos de este equipo.
-    return 0;
+    $filtro = array_filter($prestamos, 
+                fn(array $a): bool => $a['equipoId'] === $equipoId && $a['estado'] === 'activo');
+    
+    $unidadesPrestadas = array_reduce($filtro, 
+                        fn(int $carry, array $item): int => $carry + $item['unidades'], 0);
+    return $filtro === [] ? 0 : $unidadesPrestadas;
 }
 
 // Función facilitada: añade los cálculos a una copia de cada equipo.
@@ -65,25 +70,30 @@ function filtrarEquipos(
 function ordenarEquipos(array $equipos, string $orden): array
 {
     // TODO 4: ordenar una copia según el criterio y desempatar por id.
-    usort($equipos, 
+    $copia = $equipos;
+    usort($copia, 
     fn(array $a, array $b): int=>
-        $a[$orden] <=> $b[$orden])
-    return $equipos;
+        $orden === 'disponibles' 
+        ? [$a[$orden], $a['id']] <=> [$b[$orden], $b['id']] 
+        : [normalizarBusqueda($a[$orden]), $a['id']] <=> [normalizarBusqueda($b[$orden]), $b['id']]);
+    return $copia;
 }
+
+
 
 function resumirEquipos(array $equipos): array
 {
     return [
         'cantidad' => count($equipos),
-        'unidades' => count($equipos), // REVISAR: cuenta equipos, no unidades
+        'unidades' => array_reduce($equipos, fn(int $carry, array $item): int => $carry + $item['unidades'], 0), // REVISAR: cuenta equipos, no unidades
         'prestadas' => array_reduce(
             $equipos,
             fn(int $s, array $a): int => $s + $a['prestadas'],
             0
         ),
-        'disponibles' => 0, // TODO 6: sumar unidades disponibles
-        'hayAgotados' => false, // TODO 7: comprobar si algún equipo está agotado
-        'todosDisponibles' => false, // TODO 8: comprobar si todos tienen disponibilidad
+        'disponibles' => array_reduce($equipos, fn(int $carry, array $item): int=> $carry + $item['disponibles'], 0), // TODO 6: sumar unidades disponibles
+        'hayAgotados' => array_any($equipos, fn(array $e): bool => $e['disponibles'] === 0), // TODO 7: comprobar si algún equipo está agotado
+        'todosDisponibles' => array_all($equipos, fn(array $e): bool => $e['disponibles'] > 0), // TODO 8: comprobar si todos tienen disponibilidad
     ];
 }
 
@@ -96,7 +106,12 @@ function transformarNombres(array $nombres, callable $callback): array
 function generarEtiquetas(array $equipos, string $prefijo = 'Equipo: '): array
 {
     // TODO 9: extraer nombres y usar una closure que capture el prefijo.
-    return [];
+    $nombres = array_column($equipos, 'nombre');
+    $nombresTransformados = transformarNombres($nombres, 
+                                               function(string $n) use ($prefijo){
+                                                    return $prefijo . normalizarBusqueda($n);
+                                               } );
+    return $nombresTransformados;
 }
 
 // Función facilitada. La entrada web valida el id antes de llamar.
@@ -108,21 +123,23 @@ function normalizarId(int|string $id): int
 function buscarPorId(array $equipos, int|string $id): ?array
 {
     // TODO 10: buscar por id en todos los equipos; id no es índice.
-    return null;
+    $equipoEncontrado = array_find($equipos, fn(array $e): bool => $e['id'] === normalizarId($id));
+    return $equipoEncontrado['id'] === normalizarId($id) ? $equipoEncontrado : null;
 }
 
 function responsableVisible(?string $responsable): string
 {
     // TODO 11: resolver el caso de responsable null.
-    return '';
+
+    return (!is_string($responsable)) ? 'Responsable pendiente' : $responsable;
 }
 
 function inicioNombre(string $nombre): string
 {
-    return substr(limpiarEspacios($nombre), 0, 3);
+    return mb_substr(limpiarEspacios($nombre), 0, 3, 'UTF-8');
 }
 
 function codigoValido(string $codigo): bool
 {
-    return preg_match('/AV-[0-9]+-[0-9]+/', $codigo) === 1;
+    return preg_match('/^AV-\d{4}-\d{4}$/', $codigo) === 1;
 }
