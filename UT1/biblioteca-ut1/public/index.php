@@ -35,6 +35,7 @@ if($texto !== ''){
 <ul>
     <?php foreach($catalogoFinal as $libro): ?>
         <li>
+            <a href="libro.php/?id=" </a>
             <?= "Titulo: " . htmlspecialchars($libro['titulo'])?><br>
             <?= "Autor: " . htmlspecialchars($libro['autor']) ?><br>
             <?= "Genero: " . htmlspecialchars($libro['genero']) ?><br>
@@ -59,6 +60,7 @@ if($texto !== ''){
         <br>
     <?php endforeach;?>
 </ul>
+
 
 <?php
 
