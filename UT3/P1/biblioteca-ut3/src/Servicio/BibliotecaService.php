@@ -12,7 +12,7 @@ class BibliotecaService {
         return $this->libros;
     }
     public function agregar(Libro $libro): void {
-        $libros[] = $libro;
+        $this->libros[] =  $libro;
     }
     public function filtrar(
         string $q, string $genero, string $tipo,
@@ -23,10 +23,10 @@ class BibliotecaService {
         return array_filter(
             $this->todos(), 
             fn(Libro $l): bool => 
-                (str_contains($l->titulo(), $texto) || str_contains($l->autor(), $texto)) &&
+                   (str_contains(self::normalizar($l->titulo()), $texto) || str_contains(self::normalizar($l->autor()), $texto)) &&
                 ($genero === '' || $l->genero() === $genero) &&
                 ($tipo === '' || $l->getTipo() === $tipo) &&
-                (!$soloDestacados || $soloDestacados && $l->destacado())
+                (!$soloDestacados || $l->destacado())
         );
 
     }
@@ -39,8 +39,8 @@ class BibliotecaService {
                 'genero' => $l->genero(), 
                 'tipo' => $l->getTipo(),
                 'unidades' => $l->unidades(),
-                'fechaAlta' => $l->fechaAlta()->format('Y-m-d') ?? 'Sin fecha',
-                'destacado' => $l->observaciones(),
+                'fechaAlta' => $l->fechaAlta()?->format('Y-m-d') ?? 'Sin fecha',
+                'destacado' => $l->destacado(),
                 'costeCentimos' => $l->costeReposicionCentimos()
             ], 
             $libros

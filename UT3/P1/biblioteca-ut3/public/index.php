@@ -13,11 +13,13 @@ $q = $_GET['q'] ?? '';
 $genero = $_GET['genero'] ?? '';
 $tipo = $_GET['tipo'] ?? '';
 
-if(in_array('destacados', $_GET)){
-    $soloDestacados = $_GET['destacados'];
-}
+$soloDestacados = isset($_GET['destacados']);
 
 
+$librosFiltrados = $service->filtrar($q, $genero, $tipo, $soloDestacados);
+
+$filas = $service->filas($librosFiltrados);
+$resumen = $service->resumen($librosFiltrados);
 
 
 
