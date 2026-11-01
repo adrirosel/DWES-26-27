@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AdrianRosel\Biblioteca\Modelo;
 
 use DateTimeImmutable;
+use InvalidArgumentException;
 
 abstract class Libro{
     public function __construct(
@@ -24,22 +25,22 @@ abstract class Libro{
         $this->observaciones = self::normalizar($this->observaciones);
 
         if($this->titulo === '' || $this->autor === '' || $this->genero === ''){
-            throw new \InvalidArgumentException('Argumentos vacios');
+            throw new InvalidArgumentException('Argumentos vacios');
         }
         if(mb_strlen($this->titulo, 'UTF-8') > 120 || mb_strlen($this->autor, 'UTF-8')>100 ){
-            throw new \InvalidArgumentException('Tamaños incorrectos');
+            throw new InvalidArgumentException('Tamaños incorrectos');
         }
         if($this->paginas < 1 || $this->paginas > 3000){
-            throw new \InvalidArgumentException('Tamaño incorrecto de páginas');
+            throw new InvalidArgumentException('Tamaño incorrecto de páginas');
         }
         if(!in_array($this->genero, ['ciencia', 'fantasia', 'terror'])){
-            throw new \InvalidArgumentException('Genero incorrecto');
+            throw new InvalidArgumentException('Genero incorrecto');
         }
         if($this->unidades < 1 || $this->unidades > 50){
-            throw new \InvalidArgumentException('Unidades incorrectas');
+            throw new InvalidArgumentException('Unidades incorrectas');
         }
         if(mb_strlen($this->observaciones, 'UTF-8') > 300){
-            throw new \InvalidArgumentException('No pueden haber mas de 300 caracteres en observaciones');
+            throw new InvalidArgumentException('No pueden haber mas de 300 caracteres en observaciones');
         }
     }
     private static function normalizar(string $texto){

@@ -20,15 +20,18 @@ class BibliotecaService {
     ): array {
         $texto = self::normalizar($q);
 
-        return array_filter(
-            $this->todos(), 
-            fn(Libro $l): bool => 
-                   (str_contains(self::normalizar($l->titulo()), $texto) || str_contains(self::normalizar($l->autor()), $texto)) &&
-                ($genero === '' || $l->genero() === $genero) &&
-                ($tipo === '' || $l->getTipo() === $tipo) &&
-                (!$soloDestacados || $l->destacado())
+        $filtrados = array_filter(
+            $this->todos(),
+            fn(Libro $l): bool =>
+                ($texto === ''
+                    || str_contains(self::normalizar($l->titulo()), $texto)
+                    || str_contains(self::normalizar($l->autor()), $texto))
+                && ($genero === '' || $l->genero() === $genero)
+                && ($tipo === '' || $l->getTipo() === $tipo)
+                && (!$soloDestacados || $l->destacado())
         );
 
+        return array_values($filtrados);
     }
     public function filas(array $libros): array {
         return array_map(
@@ -36,13 +39,14 @@ class BibliotecaService {
                 'titulo' => $l->titulo(),
                 'autor' => $l->autor(),
                 'paginas' => $l->paginas(),
-                'genero' => $l->genero(), 
+                'genero' => $l->genero(),
                 'tipo' => $l->getTipo(),
                 'unidades' => $l->unidades(),
                 'fechaAlta' => $l->fechaAlta()?->format('Y-m-d') ?? 'Sin fecha',
                 'destacado' => $l->destacado(),
+                'observaciones' => $l->observaciones(),
                 'costeCentimos' => $l->costeReposicionCentimos()
-            ], 
+            ],
             $libros
         );
     }
