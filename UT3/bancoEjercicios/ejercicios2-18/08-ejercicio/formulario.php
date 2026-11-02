@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="index.php" method="GET">
+    <form action="validacion.php" method="GET">
         <select name="genero" id="genero">
             <option value="ciencia">Ciencia</option>
             <option value="fantasia">Fantasía</option>
