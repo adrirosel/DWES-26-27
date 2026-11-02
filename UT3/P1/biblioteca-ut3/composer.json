@@ -1,0 +1,16 @@
+{
+    "name": "adrian/biblioteca-ut3",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "AdrianRosel\\Biblioteca\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "adrirosel",
+            "email": "roselmartinezadrian@gmail.com"
+        }
+    ],
+    "require": {}
+}
