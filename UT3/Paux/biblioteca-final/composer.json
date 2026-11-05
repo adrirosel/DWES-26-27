@@ -1,0 +1,23 @@
+{
+    "name": "adrian/biblioteca-final",
+    "description": "UT3 PF práctica de estudio — tooling; el código de la app lo escribes tú",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "AdrianRosel\\Biblioteca\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "adrirosel",
+            "email": "roselmartinezadrian@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^12.5.8"
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
