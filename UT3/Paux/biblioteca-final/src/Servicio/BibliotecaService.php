@@ -46,11 +46,42 @@ final class BibliotecaService{
         );
     }
     public function filas(array $libros): array{
+        if($libros === []) return [];
         return array_map(
-            
-        )
+        function (Libro $libro, int $id): array {
+            $fechaAlta = $libro->fechaAlta();
+
+            return [
+                'id' => $id,
+                'titulo' => $libro->titulo(),
+                'autor' => $libro->autor(),
+                'paginas' => $libro->paginas(),
+                'genero' => $libro->genero(),
+                'tipo' => $libro->tipo(),
+                'unidades' => $libro->unidades(),
+                'fechaAlta' => $fechaAlta?->format('Y-m-d') ?? 'Sin fecha',
+                'destacado' => $libro->destacado(),
+                'observaciones' => $libro->observaciones(),
+                'disponible' => $libro->estaDisponible(),
+                'portada' => $libro->portada(),
+            ];
+        },
+        $libros,
+        array_keys($libros)
+    );
+
     }
     public function resumen(array $libros): array{
-
+        return array_reduce(
+            $libros, 
+            function(array $carry, Libro $item): array{
+                $carry['titulos']++;
+                $carry['unidades'] += $item->unidades();
+                $carry['paginas'] += $item->paginas();
+                $carry['costeCentimos'] += $item->costeReparacionCentimos();
+                return $carry;
+            },
+            ['titulos' => 0, 'unidades' => 0, 'paginas' => 0, 'costeCentimos' => 0]
+        );
     }
 }
