@@ -34,16 +34,19 @@ final class AltaControlador
                     try {
                         // COMPLETAR 5. Construir $nuevo con los cinco datos validados.
                         $nuevo = new Material($datos['nombre'], $datos['fabricante'], $datos['unidades'], $datos['categoria'], $datos['fechaAlta']);
-                        if(empty($errores) && empty($subida['archivo'])){
-                            if(!is_null($subida['archivo'])){
-                                $archivo = $subida['archivo'];
-                                $destino = prepararDestino($archivo);
-                                if(move_uploaded_file($archivo['tmp_name'], $destino['ruta']) === false){
-                                    $errores['imagen'] = 'Error al subir el archivo';
-                                } 
+                        if(!is_null($subida['archivo'])){
+                            $archivo = $subida['archivo'];
+                            $destino = prepararDestino($archivo['extension']);
+
+                            if(move_uploaded_file($archivo['tmp_name'], $destino['ruta']) === false){
+                                $errores['imagen'] = 'No se ha podido guardar la imagen';
+                            } else {
                                 $nuevo->cambiarImagen($destino['nombre']);
                             }
+                        }
+                        if(empty($errores)){
                             $inventario->agregar($nuevo);
+                            $creado = $nuevo;
                         }
                         // COMPLETAR 7. Guardar y asociar la imagen si hay archivo.
                         // Al terminar sin errores, agregar $nuevo y asignarlo a $creado.

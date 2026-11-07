@@ -1,8 +1,6 @@
 <?php
 use function App\Soporte\e;
-use App\Modelo\Material;
-use App\Servicio\Inventario;
-$materiales = (new Inventario(require dirname(__DIR__) . '/datos/materiales.php'))->todos();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,15 +17,15 @@ $materiales = (new Inventario(require dirname(__DIR__) . '/datos/materiales.php'
     </ul>
 <?php endif; ?>
 <!-- COMPLETAR 1. Formulario GET con controles HTML estáticos. -->
-<form action="/inventario-deportivo/public/index.php" method="get">
+<form action="index.php" method="get">
     <input type="text" name="q" id="q">
     <label for="q">Nombre o fabricante</label>
 
     <select name="categoria" id="categoria">
-        <option value="Todas"></option>
-        <option value="Colectivo">Colectivo</option>
-        <option value="Raqueta">Raqueta</option>
-        <option value="Fitness">Fitness</option>
+        <option value=""></option>
+        <option value="colectivo">Colectivo</option>
+        <option value="raqueta">Raqueta</option>
+        <option value="fitness">Fitness</option>
     </select>
 
     <button type="submit">Buscar</button>
@@ -36,7 +34,7 @@ $materiales = (new Inventario(require dirname(__DIR__) . '/datos/materiales.php'
 <?php if ($errores === []): ?>
     <!-- COMPLETAR 3. Tabla de materiales o mensaje si no hay coincidencias. -->
     <?php if (empty($materiales)):?>
-        <?= e('No hay materiales que coincidan') ?>
+        <?= e('No hay materiales que coincidan.') ?>
     <?php else: ?>
         <table>
             <thead>

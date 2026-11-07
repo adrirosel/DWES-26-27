@@ -16,22 +16,28 @@ use function App\Soporte\e;
     </ul>
 <?php endif; ?>
     <!-- COMPLETAR 4. Formulario POST multipart con controles HTML estáticos. -->
-    <form action="/inventario-deportivo/public/alta.php" method="post" enctype="multipart/form-data">
-            <input type="text" name="nombre" id="nombre">
+    <form method="post" action="alta.php" enctype="multipart/form-data">
             <label for="nombre">Nombre</label>
-            <input type="text" name="fabricante" id="fabricante">
+            <input type="text" name="nombre" id="nombre">
+            <br>
             <label for="fabricante">Fabricante</label>
-            <input type="text" name="unidades" id="unidades">
+            <input type="text" name="fabricante" id="fabricante">
+            <br>
             <label for="unidades">Unidades</label>
+            <input type="text" name="unidades" id="unidades">
+            <br>
             <select name="categoria" id="categoria">
                 <option value="">Elige una categoría</option>
                 <option value="colectivo">Colectivo</option>
                 <option value="raqueta">Raqueta</option>
                 <option value="fitness">Fitness</option>
             </select>
-            <input type="text" name="fechaAlta" id="fechaAlta">
+            <br>
             <label for="fechaAlta">Fecha de alta</label>
+            <input type="text" name="fechaAlta" id="fechaAlta">
+            <br>
             <input type="file" name="imagen" id="imagen" accept="image/jpeg,image/webp,image/png">
+            <button type="submit">Guardar material</button>
 
     </form>
 <?php else: ?>

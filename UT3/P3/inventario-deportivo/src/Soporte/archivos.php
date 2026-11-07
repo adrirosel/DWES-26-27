@@ -68,7 +68,7 @@ function inspeccionarImagen(array $archivos): array
     }
     $detector = new finfo(FILEINFO_MIME_TYPE);
     $mime = $detector->file($a['tmp_name']);
-    if($mime === false || !in_array($mime, MIME_IMAGENES)){
+    if($mime === false || !array_key_exists($mime, MIME_IMAGENES)){
         return ['archivo' => null, 'error' => 'Extensión no compatible'];
     } 
     $a['extension'] = MIME_IMAGENES[$mime];
