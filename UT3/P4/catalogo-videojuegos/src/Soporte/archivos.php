@@ -85,22 +85,19 @@ function inspeccionarCaratula(array $archivos): array
     $a = $r['archivo'];
 
     // COMPLETAR 4. Tamaño, temporal legible y MIME. No mover aquí el archivo.
-    $maxSize = 2 * 1024 * 1024;
-    if($a['size'] <= 0 || $a['size'] >= $maxSize){
-        return ['archivo' => null, 'error' => 'El tamaño del archivo es incorrecto (entre 1 byte y 2MiB)'];
+    $maxSize = 2 * pow(1024, 2);
+    if($a['size'] < 1 || $a['size'] > $maxSize){
+        return ['archivo' => null, 'error' => 'El tamaño del archivo no es compatible'];
     }
     if(!is_file($a['tmp_name']) || !is_readable($a['tmp_name'])){
-        return ['archivo' => null, 'error' => 'No ha sido posible procesar el archivo, la ruta no corresponde con un archivo legible'];
+        return ['archivo' => null, 'error' => 'No se ha podido procesar correctamente el archivo'];
     }
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $mime = $finfo->file($a['tmp_name']);
+    $detector = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $detector->file($a['tmp_name']);
     if($mime === false || !array_key_exists($mime, MIME_CARATULAS)){
-        return ['archivo' => null, 'error' => 'La extensión del archivo no es correcta'];
+        return ['archivo' => null, 'error' => 'La naturaleza o el formato del archivo no son correctas'];
     }
-    $a['extension'] = MIME_CARATULAS[ $mime];
-
-
-
+    $a['extension'] = MIME_CARATULAS[$mime];
     return ['archivo' => $a, 'error' => null];
 }
 

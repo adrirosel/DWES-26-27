@@ -25,9 +25,9 @@ use function App\Soporte\e;
     <?php endif; ?>
 
     <!-- COMPLETAR 1. Formulario GET con controles HTML estáticos. -->
-     <form action="/public/index.php" method="get">
+     <form action="index.php" method="get">
         <label for="q">Título o estudio</label>
-        <input type="text" name="q" id="q" value="">
+        <input type="text" name="q" id="q">
         <br>
         <label for="genero">Género</label>
         <select name="genero" id="genero">

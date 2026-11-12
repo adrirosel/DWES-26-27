@@ -7,7 +7,6 @@ namespace App\Controlador;
 use App\Servicio\Catalogo;
 use App\Modelo\Videojuego;
 use InvalidArgumentException;
-use PHPUnit\Event\Runtime\Runtime;
 use RuntimeException;
 
 use function App\Soporte\validarVideojuego;
@@ -47,17 +46,17 @@ final class AltaControlador
                         // COMPLETAR 3. Construir $nuevo con los cinco datos validados.
                         $nuevo = new Videojuego($datos['titulo'], $datos['estudio'], $datos['horas'], $datos['genero'], $datos['fechaLanzamiento']);
                         // COMPLETAR 5. Guardar y asociar la carátula si hay archivo.
+                        // Al terminar sin errores, agregar $nuevo y asignarlo a $creado.
                         if(!is_null($subida['archivo'])){
                             $archivo = $subida['archivo'];
                             $destino = prepararDestino($archivo['extension']);
 
                             if(move_uploaded_file($archivo['tmp_name'], $destino['ruta']) === false){
-                                $errores['caratula'] = 'No ha sido posible almacenar el archivo';
-                                throw new RuntimeException($errores['caratula']);
+                                $errores['caratula'] = 'No ha sido posible almacenar el archivo en el disco';
+                                throw new RuntimeException('No ha sido posible almacenar el archivo en el disco duro');
                             }
                             $nuevo->cambiarCaratula($destino['nombre']);
                         }
-                        // Al terminar sin errores, agregar $nuevo y asignarlo a $creado.
                         $catalogo->agregar($nuevo);
                         $creado = $nuevo;
 
