@@ -11,7 +11,30 @@ final class CaratulaTemporalTest extends TestCase
     private ?string $temporal = null;
 
     // COMPLETAR 10. setUp, prueba de rechazo y tearDown.
+    protected function setUp(): void {
+        $ruta = tempnam(sys_get_temp_dir(), 'ut3_');
+        if($ruta === false) {
+            throw new RuntimeException('No ha sido posible crear el temporal');
+        }
+        $this->temporal = $ruta;
+        file_put_contents($this->temporal, 'Esto es un texto de prueba');
+    }
 
+    public function testRechazaTextoComoCaratula(): void {
+        $resultado = inspeccionarCaratula($this->entradaArchivo());
+
+        $this->assertNull($resultado['archivo']);
+        $this->assertNotNull($resultado['error']);
+    }
+
+    protected function tearDown(): void {
+        if($this->temporal !== null){
+            if(file_exists($this->temporal)) {
+                unlink($this->temporal);
+            }
+        }
+        $this->assertFileDoesNotExist($this->temporal);
+    }
 
     // Proporcionado. Representa el temporal como entrada de inspeccionarCaratula.
     private function entradaArchivo(): array

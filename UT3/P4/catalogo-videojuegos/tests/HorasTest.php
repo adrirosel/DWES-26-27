@@ -19,6 +19,13 @@ final class HorasTest extends TestCase
             ['12abc', false],
             [['412'], false]
         ];
+    }
+    #[DataProvider('casosHoras')]
+    public function testCasosHoras(mixed $entrada, bool $valida): void{
+        $post = $this->datosValidos();
+        $post['horas'] = $entrada;
+        $r = validarVideojuego($post);
+        $this->assertSame($valida, !isset(['errores']['datos']));
     }  
 
     // Proporcionado. Datos válidos sobre los que varías solo horas.
