@@ -44,7 +44,7 @@ use function App\Soporte\e;
             </select>
             <br>
             <label for="fechaLanzamiento">Fecha de lanzamiento</label>
-            <input type="text" name="fechaLanzamiento" id="fechaLanzamiento">
+            <input type="text" name="fechaLanzamiento" id="fechaLanzamiento" placeholder="YYYY-MM-DD">
             <br>
             <label for="caratula">Carátula</label>
             <input type="file" name="caratula" id="caratula" accept="image/jpeg,image/png,image/webp">

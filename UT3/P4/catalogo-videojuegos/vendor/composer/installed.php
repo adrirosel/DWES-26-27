@@ -3,7 +3,7 @@
         'name' => 'docencia/practica-ut3-catalogo-videojuegos',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '842ab8a25529f000c1a4146dfe096ac1c05178ad',
+        'reference' => '7acef2bf31b7158bc7bc9029546a8e34253ff366',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'docencia/practica-ut3-catalogo-videojuegos' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '842ab8a25529f000c1a4146dfe096ac1c05178ad',
+            'reference' => '7acef2bf31b7158bc7bc9029546a8e34253ff366',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
