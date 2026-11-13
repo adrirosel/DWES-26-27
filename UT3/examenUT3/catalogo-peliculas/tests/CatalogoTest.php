@@ -13,7 +13,7 @@ final class CatalogoTest extends TestCase
 
         $this->assertSame('Dune', $pelicula->titulo());
         $this->assertSame('Denis Villeneuve', $pelicula->director());
-        $this->assertSame('Dune', $pelicula->titulo());
+        $this->assertSame(155, $pelicula->duracion());
         $this->assertNull($pelicula->fechaEstreno());
 
     }
