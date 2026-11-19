@@ -6,7 +6,7 @@
     <title>Biblioteca de aula</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
-<body class="<?= $tema ?>">
+<body class="<?= $tema ?> <?= $espaciado ?>">
 <header>
     <h1>Biblioteca de aula</h1>
     <nav><a href="index.php">Catálogo</a></nav>

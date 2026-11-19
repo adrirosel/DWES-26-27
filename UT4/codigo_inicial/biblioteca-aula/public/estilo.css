@@ -71,3 +71,8 @@ body.oscuro {
 body.oscuro a {
     color: #a7eef2;
 }
+
+body.mayor * {
+    gap: 1rem;
+    padding: 1.5rem;
+}

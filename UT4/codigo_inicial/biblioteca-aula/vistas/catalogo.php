@@ -10,7 +10,7 @@
     <button type="submit">Guardar tema</button>
 </form>
 
-<form action="preferencias.php" method="post">
+<form action="preferencias2.php" method="post">
     <label for="espaciado">Espaciado</label>
     <select name="espaciado" id="espaciado">
         <option value="mayor">Mayor</option>

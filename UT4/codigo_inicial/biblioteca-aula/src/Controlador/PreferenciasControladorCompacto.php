@@ -8,7 +8,7 @@ use function App\Soporte\redirigir;
 
 final class PreferenciasControladorCompacto extends Controlador {
     public function guardar(): void {
-        $espaciado = $_POST['tema'] ?? null;
+        $espaciado = $_POST['espaciado'] ?? null;
 
         if(in_array($espaciado, ['mayor', 'menor'], true)){
             //Guardar

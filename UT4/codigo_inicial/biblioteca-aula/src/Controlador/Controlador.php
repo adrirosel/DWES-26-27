@@ -11,6 +11,7 @@ abstract class Controlador
     {
         extract($datos, EXTR_SKIP);
         $tema = ($_COOKIE['tema'] ?? null) === 'oscuro' ? 'oscuro' : 'claro';
+        $espaciado = ($_COOKIE['espaciado'] ?? null) === 'mayor' ? 'mayor' : 'menor';
         require dirname(__DIR__, 2) . '/vistas/cabecera.php';
         require dirname(__DIR__, 2) . '/vistas/' . $nombre . '.php';
         require dirname(__DIR__, 2) . '/vistas/pie.php';
